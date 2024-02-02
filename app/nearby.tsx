@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactMapGL, {
     Marker,
     Source,
@@ -10,7 +10,7 @@ import ReactMapGL, {
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function Nearby() {
-
+    const nearbyMapRef = useRef<typeof ReactMapGL | null>(null);
     const token = process.env.MAPBOX_TOKEN
 
     const [viewport, setViewport] = useState({
@@ -25,14 +25,27 @@ export default function Nearby() {
         const hasRequisite = "serviceWorker" in navigator && "geolocation" in navigator;
 
         if (hasRequisite) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.info("Geolocation is supported");
 
+                nearbyMapRef.current?.getMap().flyTo({
+                    center: [position.coords.longitude, position.coords.latitude],
+                    zoom: 17,
+                    speed: 0.8,
+                    easing(t: unknown) {
+                        return t;
+                    }
+                });
+            });
         } else {
             console.info("Geolocation is not supported");
         }
     }, []);
 
     return (
-        <ReactMapGL mapStyle="mapbox://styles/mapbox/streets-v12" {...viewport}
+        <ReactMapGL {...viewport}
+            ref={nearbyMapRef}
+            mapStyle="mapbox://styles/mapbox/streets-v12"
             mapboxAccessToken={token}
             initialViewState={viewport}
             onMove={(event) => { setViewport(event.viewState) }}
@@ -40,8 +53,8 @@ export default function Nearby() {
             maxZoom={19}
             style={{ width: '100%', height: '100vh' }}
             dragPan>
-            <NavigationControl showCompass showZoom position="top-right" />
-            <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
+            <NavigationControl position="top-right" showCompass showZoom />
+            <GeolocateControl position="top-right" positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         </ReactMapGL>
     )
 }

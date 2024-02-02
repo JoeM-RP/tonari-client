@@ -155,13 +155,13 @@ export default function Notify() {
         // TODO: affect state better when detecting "activated"
         if (registration?.active?.state === "activated")
             return (
-                <>
+                <div className='flex space-x-4'>
                     <button className='flex-initial bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded-full' onClick={() => randomNotification()}>Send a notifiction</button>
                     <button className='flex-initial bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded-full' onClick={() => {
                         navigator.clearAppBadge();
                         setCount(0)
                     }}>Clear badge</button>
-                </>
+                </div>
             )
 
         return <p>Setting up...</p>
