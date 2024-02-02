@@ -10,7 +10,7 @@ import ReactMapGL, {
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function Nearby() {
-    const nearbyMapRef = useRef<typeof ReactMapGL | null>(null);
+    const nearbyMapRef = useRef<any>(null);
     const token = process.env.MAPBOX_TOKEN
 
     const [viewport, setViewport] = useState({
