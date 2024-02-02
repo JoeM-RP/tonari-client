@@ -54,7 +54,7 @@ export default function Nearby() {
             style={{ width: '100%', height: '100vh' }}
             dragPan>
             <NavigationControl position="top-right" showCompass showZoom />
-            <GeolocateControl position="top-right" positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
+            <GeolocateControl position="top-right" positionOptions={{ enableHighAccuracy: true }} trackUserLocation showUserHeading />
         </ReactMapGL>
     )
 }
