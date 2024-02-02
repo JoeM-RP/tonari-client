@@ -1,20 +1,47 @@
 'use client'
 
-// import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-// import 'mapbox-gl/dist/mapbox-gl.css';
-
-// const Map = ReactMapboxGl({
-//     accessToken: process.env.MAPBOX_TOKEN || ''
-// });
+import { useEffect, useState } from 'react';
+import ReactMapGL, {
+    Marker,
+    Source,
+    Layer,
+    NavigationControl, GeolocateControl
+} from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function Nearby() {
 
+    const token = process.env.MAPBOX_TOKEN
+
+    const [viewport, setViewport] = useState({
+        latitude: 41.948437,
+        longitude: -87.655334,
+        zoom: 17,
+    });
+
+    const [flights, setFlights] = useState([]);
+
+    useEffect(() => {
+        const hasRequisite = "serviceWorker" in navigator && "geolocation" in navigator;
+
+        if (hasRequisite) {
+
+        } else {
+            console.info("Geolocation is not supported");
+        }
+    }, []);
+
     return (
-        // <Map style="mapbox://styles/mapbox/streets-v9" containerStyle={{ height: '100vh', width: '100vw' }}>
-        //     <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-        //         <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />
-        //     </Layer>
-        // </Map>
-        <>Nearby</>
+        <ReactMapGL mapStyle="mapbox://styles/mapbox/streets-v12" {...viewport}
+            mapboxAccessToken={token}
+            initialViewState={viewport}
+            onMove={(event) => { setViewport(event.viewState) }}
+            minZoom={15}
+            maxZoom={19}
+            style={{ width: '100%', height: '100vh' }}
+            dragPan>
+            <NavigationControl showCompass showZoom position="top-right" />
+            <GeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
+        </ReactMapGL>
     )
 }

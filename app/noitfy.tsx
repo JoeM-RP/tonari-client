@@ -50,7 +50,7 @@ export default function Notify() {
     const [registration, setRegistration] = useState<ServiceWorkerRegistration>()
 
     useEffect(() => {
-        const hasRequisite = "serviceWorker" in navigator && "Notification" in window && "PushManager" in window
+        const hasRequisite = "serviceWorker" in navigator && "Notification" in window && "PushManager" in window;
         setIsSupported(hasRequisite)
 
         if (window.serwist !== undefined && hasRequisite) {
@@ -152,6 +152,7 @@ export default function Notify() {
         if (!isSupported) return <div><p>Install the app to use notifications</p><button className='flex-initial bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-4 my-2 rounded-full' onClick={() => installSheet()}>Show Me</button></div>
         if (!isGranted) return <button className='flex-initial bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded-full' onClick={() => requestPermission()}>Enable notifictions</button>
 
+        // TODO: affect state better when detecting "activated"
         if (registration?.active?.state === "activated")
             return (
                 <>
@@ -167,10 +168,8 @@ export default function Notify() {
 
     }
 
-
-
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-row justify-between'>
             {renderControl()}
         </div>
     )
