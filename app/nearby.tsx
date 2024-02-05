@@ -8,6 +8,7 @@ import ReactMapGL, {
     NavigationControl, GeolocateControl
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { isGeoSupported } from './swSupport';
 
 export default function Nearby() {
     const nearbyMapRef = useRef<any>(null);
@@ -22,7 +23,7 @@ export default function Nearby() {
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
-        const hasRequisite = "serviceWorker" in navigator && "geolocation" in navigator;
+        const hasRequisite = isGeoSupported();
 
         if (hasRequisite) {
             navigator.geolocation.getCurrentPosition((position) => {

@@ -11,7 +11,7 @@ export default function Home() {
         <Notify />
         <div>{/** Col 2  */}</div>
       </div>
-      <div className="w-full">
+      <div className="w-full ">
         <Nearby />
       </div>
     </main>
