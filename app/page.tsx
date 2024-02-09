@@ -13,7 +13,7 @@ export default function Home() {
         </div>
         <div className="z-10 w-full max-w-prose px-4 flex flex-row gap-4 absolute top-20">
           <div className="flex-grow">
-            {/* <Search /> */}
+            <Search />
           </div>
           <Notify />
         </div>
