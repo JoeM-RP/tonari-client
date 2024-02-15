@@ -3,6 +3,9 @@ export interface INearby {
     text: string;
     place_name: string;
     center: [number, number];
+    properties?: {
+        address: string;
+    }
   }
 
 export type NearbyContextType = {
