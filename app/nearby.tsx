@@ -29,6 +29,10 @@ export default function Nearby() {
         if (hasOptional) {
             console.info("[nearby] Storage is supported");
         }
+
+        if (hasOptional) {
+            console.info("Storage is supported");
+        }
     }, []);
 
     const userMarker = useMemo(() => {

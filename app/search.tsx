@@ -117,6 +117,8 @@ export default function Search() {
 
                 // setMyPlaces(myPlaces);
             }
+
+            setPredictionResults([]);
         });
     };
 
