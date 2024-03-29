@@ -1,7 +1,7 @@
 'use client'
 
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
-import { ChangeEvent, use, useContext, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { useDebouncedCallback } from 'use-debounce';
 import { isGeoSupported } from "../../swSupport";
 import { CurrentPlaceContext, PlacesContext } from "@/app/contexts";

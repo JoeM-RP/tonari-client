@@ -57,7 +57,3 @@ nav {
   top: 0 !important;
   right: 0 !important;
 }
-
-.gm-style-iw .gm-style-iw-c, .gm-style-iw-tc {
-  transform: translateY(-4px);
-}
