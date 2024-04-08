@@ -17,7 +17,7 @@ export default function Search() {
 
     const [position, setPosition] = useState<GeolocationPosition>();
 
-    const map = useMap('map');
+    const map = useMap('tonari-map');
     const placesLib = useMapsLibrary('places');
 
     const [placesService, setPlacesService] = useState<google.maps.places.PlacesService | null>();
