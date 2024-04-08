@@ -32,12 +32,12 @@ export default function Providers({ children }: React.PropsWithChildren) {
 const PlacesProvider = ({ children }: any) => {
     const defaultPlaces: INearby[] = isDev ? nearbyData : [];
     const [places, setPlaces] = useState<INearby[]>([])
-    const hasSotrage = useState(isStorageSupported())
+    const hasStorage = useState(isStorageSupported())
 
     useEffect(() => {
         console.warn('[providers] Initializing places provider')
 
-        if (hasSotrage) {
+        if (hasStorage) {
             const cache = localStorage.getItem('tonari_places')
             if (cache) {
                 const parsed = JSON.parse(cache)
@@ -56,7 +56,7 @@ const PlacesProvider = ({ children }: any) => {
         setPlaces([...places, newPlace])
 
         // Persist locally
-        if (hasSotrage) localStorage.setItem('tonari_places', JSON.stringify([...places, newPlace]))
+        if (hasStorage) localStorage.setItem('tonari_places', JSON.stringify([...places, newPlace]))
     }
 
     const updatePlace = (place: INearby) => {
@@ -67,8 +67,9 @@ const PlacesProvider = ({ children }: any) => {
             if (p.id === place.id) {
                 p = upPlace
                 setPlaces([...places])
+                debugger;
 
-                if (hasSotrage) localStorage.setItem('tonari_places', JSON.stringify([...places]))
+                if (hasStorage) localStorage.setItem('tonari_places', JSON.stringify([...places]))
             }
         })
     }

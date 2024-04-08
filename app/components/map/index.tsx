@@ -64,7 +64,9 @@ export default function Map() {
 
                 const id = address ? `${address.replaceAll(' ', '')}` : `neighbor-${latitude}-${longitude}`
 
-                return (<Neighbor id={id} key={id} latitude={latitude} longitude={longitude} handleClick={() => handlePlaceClick(place)} />)
+                const color = place.tags?.includes('visited') ? 'yellow' : 'red'
+
+                return (<Neighbor id={id} key={id} latitude={latitude} longitude={longitude} handleClick={() => handlePlaceClick(place)} color={color} />)
             } catch (e) {
                 console.warn('[nearby] Error rendering pin: ' + place.name)
                 console.warn(e)

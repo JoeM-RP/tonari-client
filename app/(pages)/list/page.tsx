@@ -116,7 +116,7 @@ export default function List() {
                         href={`?place=${name}`}
                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 flex gap-2')}
                     >
-                        <span className='font-bold'>{(index + 1).toLocaleString('en', { minimumIntegerDigits: 2 })}.</span> {name} <span className='flex-grow' /> ?? mi.
+                        <span className='font-bold'>{(index + 1).toLocaleString('en', { minimumIntegerDigits: 2 })}.</span> {name} <span className='flex-grow' /> -- mi.
                     </a>
                 )}
             </Menu.Item>)

@@ -12,6 +12,7 @@ export interface INearby {
     hours?: string[]
     description?: string;
     photos?: any[]
+    tags?: string[]
   }
 
 export type NearbyContextType = {

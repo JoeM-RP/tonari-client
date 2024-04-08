@@ -9,10 +9,11 @@ export default function Place() {
     const place = usePlaceContext()!;
     const dispatch = usePlaceDispatchContext()!;
 
-    const { places, savePlace } = useContext<any>(PlacesContext);
+    const { places, savePlace, updatePlace } = useContext<any>(PlacesContext);
 
     const [isOpen, setIsOpen] = useState(false);
     const [isInList, setIsInList] = useState(false);
+    const [isVisited, setIsVisited] = useState(false);
 
     useEffect(() => {
         if (place !== null) {
@@ -22,6 +23,9 @@ export default function Place() {
             const found = places.find((p: any) => p.id === place.id);
             console.info(`[place] is ${place.name} in list: ${!!found}`);
             setIsInList(!!found)
+
+            const visited = place.tags?.includes('visited');
+            setIsVisited(visited || false);
 
             openModal();
         }
@@ -41,10 +45,14 @@ export default function Place() {
     const handleRemove = useDebouncedCallback(() => {
         if (!place) return;
 
-        // unSave(place);
+        if (!place.tags) place.tags = ['visited'];
+        else
+            place.tags?.push('visited');
+
+        updatePlace(place);
 
         console.info(`Removed ${place.name} from myPlaces`);
-        console.info([...places, place]);
+        console.info([...places]);
 
         closeModal();
     }, 300);
@@ -109,7 +117,7 @@ export default function Place() {
                                         )}
                                     </div>
 
-                                    {!isInList && (<div className="mt-4">
+                                    {!isInList && !isVisited && (<div className="mt-4">
                                         <button
                                             type="button"
                                             className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
@@ -118,7 +126,7 @@ export default function Place() {
                                             Add to List!
                                         </button>
                                     </div>)}
-                                    {isInList && (<div className="mt-4">
+                                    {isInList && !isVisited && (<div className="mt-4">
                                         <button
                                             type="button"
                                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
