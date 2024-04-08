@@ -101,23 +101,22 @@ export default function List() {
     const pins = useMemo(() => {
         if (!places) return;
 
-        return places.map((restaurant: any, index: number) => {
+        return places.map((restaurant: INearby, index: number) => {
             console.info('[nearby] Rendering pins')
-            const { text, properties, center, place_name } = restaurant
+            const { name, address, center } = restaurant
 
-            const address = place_name
             const latitude = center[1]
             const longitude = center[0]
 
-            const id = `list-${address.replaceAll(' ', '')}` || `list-neighbor-${latitude}-${longitude}`
+            const id = address ? `list-${address.replaceAll(' ', '')}` : `list-neighbor-${latitude}-${longitude}`
 
             return (<Menu.Item key={id}>
                 {({ active }) => (
                     <a
-                        href={`?place=${text}`}
+                        href={`?place=${name}`}
                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 flex gap-2')}
                     >
-                        <span className='font-bold'>{(index + 1).toLocaleString('en', { minimumIntegerDigits: 2 })}.</span> {text} <span className='flex-grow' /> ?? mi.
+                        <span className='font-bold'>{(index + 1).toLocaleString('en', { minimumIntegerDigits: 2 })}.</span> {name} <span className='flex-grow' /> ?? mi.
                     </a>
                 )}
             </Menu.Item>)
